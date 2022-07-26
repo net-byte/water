@@ -35,6 +35,16 @@ func openDev(config Config) (ifce *Interface, err error) {
 	if err != nil {
 		return nil, err
 	}
+	nativeTunDevice := dev.(*tun.NativeTun)
+	link := winipcfg.LUID(nativeTunDevice.LUID())
+	ip, err := netip.ParsePrefix(config.PlatformSpecificParams.Network)
+	if err != nil {
+		panic(err)
+	}
+	err = link.SetIPAddresses([]netip.Prefix{ip})
+	if err != nil {
+		panic(err)
+	}
 	wintun := &wintun{dev: dev}
 	ifce = &Interface{isTAP: (config.DeviceType == TAP), ReadWriteCloser: wintun}
 	return ifce, nil

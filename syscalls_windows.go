@@ -1,10 +1,10 @@
 package water
 
 import (
+	"./winipcfg"
 	"golang.org/x/sys/windows"
 	"golang.zx2c4.com/wireguard/tun"
 	"net/netip"
-	"water/winipcfg"
 )
 
 type wintun struct {

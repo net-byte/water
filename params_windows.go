@@ -3,7 +3,7 @@ package water
 // PlatformSpecificParams defines parameters in Config that are specific to
 // Windows. A zero-value of such type is valid.
 type PlatformSpecificParams struct {
-	InterfaceName string
+	Name string
 	// Network is required when creating a TUN interface. The library will call
 	// net.ParseCIDR() to parse this string into LocalIP, RemoteNetaddr,
 	// RemoteNetmask. The underlying driver will need those to generate ARP
@@ -19,7 +19,7 @@ type PlatformSpecificParams struct {
 
 func defaultPlatformSpecificParams() PlatformSpecificParams {
 	return PlatformSpecificParams{
-		InterfaceName: "wintun",
-		Network:       "172.16.1.10/24",
+		Name:    "wintun",
+		Network: "172.16.1.10/24",
 	}
 }

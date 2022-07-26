@@ -31,7 +31,7 @@ func openDev(config Config) (ifce *Interface, err error) {
 		0xFFFF,
 		[8]byte{0xFF, 0xe9, 0x76, 0xe5, 0x8c, 0x74, 0x06, 0x3e},
 	}
-	dev, err := tun.CreateTUNWithRequestedGUID(config.PlatformSpecificParams.InterfaceName, id, 0)
+	dev, err := tun.CreateTUNWithRequestedGUID(config.PlatformSpecificParams.Name, id, 0)
 	if err != nil {
 		return nil, err
 	}

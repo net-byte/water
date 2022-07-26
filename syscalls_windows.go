@@ -1,7 +1,7 @@
 package water
 
 import (
-	"./winipcfg"
+	"github.com/net-byte/water/winipcfg"
 	"golang.org/x/sys/windows"
 	"golang.zx2c4.com/wireguard/tun"
 	"net/netip"

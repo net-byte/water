@@ -148,7 +148,7 @@ You'd see the ICMP packets printed out:
 1. Only Point-to-Point user TUN devices are supported. TAP devices are *not* supported natively by macOS.
 2. Custom interface names are not supported by macOS. Interface names are automatically generated serially, using the `utun<#>` naming convention.
 
-### TAP on Windows:
+### Tun on Windows:
 
 To use it with windows, you will need to install a [wintun driver](https://www.wintun.net/) for windows.
 
@@ -216,7 +216,7 @@ If you are going to use multiple TUN devices on the Windows, there is a way to s
 	ifce, err := water.New(water.Config{
 		DeviceType: water.TUN,
 		PlatformSpecificParams: water.PlatformSpecificParams{
-			InterfaceName: "Ethernet 3",
+			Name: "wintun",
 			Network:       "172.16.1.10/24",
 		},
 	})

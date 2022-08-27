@@ -1,10 +1,12 @@
 package water
 
 import (
+	"net/netip"
+	"strings"
+
 	"github.com/net-byte/water/winipcfg"
 	"golang.org/x/sys/windows"
 	"golang.zx2c4.com/wireguard/tun"
-	"net/netip"
 )
 
 type wintun struct {
@@ -39,11 +41,18 @@ func openDev(config Config) (ifce *Interface, err error) {
 	}
 	nativeTunDevice := dev.(*tun.NativeTun)
 	link := winipcfg.LUID(nativeTunDevice.LUID())
-	ip, err := netip.ParsePrefix(config.PlatformSpecificParams.Network)
-	if err != nil {
-		panic(err)
+
+	networks := strings.Split(config.PlatformSpecificParams.Network, ",")
+	ipPrefix := []netip.Prefix{}
+	for _, n := range networks {
+		ip, err := netip.ParsePrefix(n)
+		if err != nil {
+			panic(err)
+		}
+		ipPrefix = append(ipPrefix, ip)
 	}
-	err = link.SetIPAddresses([]netip.Prefix{ip})
+
+	err = link.SetIPAddresses(ipPrefix)
 	if err != nil {
 		panic(err)
 	}

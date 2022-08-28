@@ -14,12 +14,12 @@ type PlatformSpecificParams struct {
 	// For detail, please refer
 	// https://github.com/OpenVPN/tap-windows6/blob/master/src/device.c#L431
 	// and https://github.com/songgao/water/pull/13#issuecomment-270341777
-	Network string
+	Network []string
 }
 
 func defaultPlatformSpecificParams() PlatformSpecificParams {
 	return PlatformSpecificParams{
 		Name:    "wintun",
-		Network: "172.16.1.10/24",
+		Network: []string{"172.16.1.10/24"},
 	}
 }

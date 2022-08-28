@@ -2,7 +2,6 @@ package water
 
 import (
 	"net/netip"
-	"strings"
 
 	"github.com/net-byte/water/winipcfg"
 	"golang.org/x/sys/windows"
@@ -42,7 +41,10 @@ func openDev(config Config) (ifce *Interface, err error) {
 	nativeTunDevice := dev.(*tun.NativeTun)
 	link := winipcfg.LUID(nativeTunDevice.LUID())
 
-	networks := strings.Split(config.PlatformSpecificParams.Network, ",")
+	networks := config.PlatformSpecificParams.Network
+	if len(networks) == 0 {
+		panic("network is empty")
+	}
 	ipPrefix := []netip.Prefix{}
 	for _, n := range networks {
 		ip, err := netip.ParsePrefix(n)

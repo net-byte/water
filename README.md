@@ -217,7 +217,7 @@ If you are going to use multiple TUN devices on the Windows, there is a way to s
 		DeviceType: water.TUN,
 		PlatformSpecificParams: water.PlatformSpecificParams{
 			Name: "wintun",
-			Network:       "172.16.1.10/24",
+			Network:       []string{"172.16.1.10/24"},
 		},
 	})
 ```

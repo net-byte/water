@@ -3,6 +3,7 @@ package water
 import (
 	"errors"
 	"io"
+	"reflect"
 )
 
 // Interface is a TUN/TAP interface.
@@ -50,10 +51,10 @@ var zeroConfig Config
 
 // New creates a new TUN/TAP interface using config.
 func New(config Config) (ifce *Interface, err error) {
-	if zeroConfig == config {
+	if reflect.DeepEqual(config, zeroConfig) {
 		config = defaultConfig()
 	}
-	if config.PlatformSpecificParams == zeroConfig.PlatformSpecificParams {
+	if reflect.DeepEqual(config.PlatformSpecificParams, zeroConfig.PlatformSpecificParams) {
 		config.PlatformSpecificParams = defaultPlatformSpecificParams()
 	}
 	switch config.DeviceType {

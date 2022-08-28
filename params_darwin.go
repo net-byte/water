@@ -1,3 +1,6 @@
+//go:build darwin
+// +build darwin
+
 package water
 
 // MacOSDriverProvider enumerates possible MacOS TUN/TAP implementations

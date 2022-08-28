@@ -1,3 +1,6 @@
+//go:build linux
+// +build linux
+
 package water
 
 // DevicePermissions determines the owner and group owner for the newly created

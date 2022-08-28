@@ -1,3 +1,6 @@
+//go:build windows
+// +build windows
+
 package water
 
 // PlatformSpecificParams defines parameters in Config that are specific to

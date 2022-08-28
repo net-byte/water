@@ -6,9 +6,9 @@ package water
 import (
 	"net/netip"
 
-	"github.com/net-byte/water/winipcfg"
 	"golang.org/x/sys/windows"
 	"golang.zx2c4.com/wireguard/tun"
+	"golang.zx2c4.com/wireguard/windows/tunnel/winipcfg"
 )
 
 type wintun struct {

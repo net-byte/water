@@ -48,6 +48,7 @@ func openDev(config Config) (ifce *Interface, err error) {
 	if len(networks) == 0 {
 		panic("network is empty")
 	}
+	// set ip addresses
 	ipPrefix := []netip.Prefix{}
 	for _, n := range networks {
 		ip, err := netip.ParsePrefix(n)
@@ -56,11 +57,20 @@ func openDev(config Config) (ifce *Interface, err error) {
 		}
 		ipPrefix = append(ipPrefix, ip)
 	}
-
 	err = link.SetIPAddresses(ipPrefix)
 	if err != nil {
 		panic(err)
 	}
+	// set dns
+	servers := []netip.Addr{}
+	servers[0], _ = netip.ParseAddr("8.8.8.8")
+	servers[1], _ = netip.ParseAddr("1.1.1.1")
+	domains := []string{"wintun.dns"}
+	err = link.SetDNS(windows.AF_INET, servers, domains)
+	if err != nil {
+		panic(err)
+	}
+
 	wintun := &wintun{dev: dev}
 	ifce = &Interface{isTAP: (config.DeviceType == TAP), ReadWriteCloser: wintun}
 	return ifce, nil

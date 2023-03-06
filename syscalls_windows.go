@@ -4,6 +4,7 @@
 package water
 
 import (
+	"log"
 	"net/netip"
 
 	"golang.org/x/sys/windows"
@@ -68,7 +69,7 @@ func openDev(config Config) (ifce *Interface, err error) {
 	domains := []string{"wintun.dns"}
 	err = link.SetDNS(windows.AF_INET, servers, domains)
 	if err != nil {
-		panic(err)
+		log.Println(err)
 	}
 
 	wintun := &wintun{dev: dev}

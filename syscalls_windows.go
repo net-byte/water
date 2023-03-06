@@ -64,12 +64,15 @@ func openDev(config Config) (ifce *Interface, err error) {
 	}
 	// set dns
 	servers := []netip.Addr{}
-	servers[0], _ = netip.ParseAddr("8.8.8.8")
-	servers[1], _ = netip.ParseAddr("1.1.1.1")
+	s1, _ := netip.ParseAddr("8.8.8.8")
+	s2, _ := netip.ParseAddr("1.1.1.1")
+	servers = append(servers, s1)
+	servers = append(servers, s2)
 	domains := []string{"wintun.dns"}
+	log.Printf("set dns servers:%v domain:%v", servers, domains)
 	err = link.SetDNS(windows.AF_INET, servers, domains)
 	if err != nil {
-		log.Println(err)
+		panic(err)
 	}
 
 	wintun := &wintun{dev: dev}
